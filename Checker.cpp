@@ -24,7 +24,7 @@ ll read(FILE* f) {
 string read(FILE* f, char ch) {
     string ret = "";
     char c = getc(f);
-    while (c != ch) {
+    while (c != ch && c != EOF) {
         ret += c; c = getc(f);
     }
     ungetc(c, f);
