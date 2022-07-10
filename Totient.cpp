@@ -4,8 +4,10 @@ using namespace std;
 #define se second
 #define pb push_back
 typedef long long ll;
+typedef pair<int, int> pi;
 //modified from https://cp-algorithms.com/algebra/phi-function.html
-ll n;
+const int MM = 1e5 + 5;
+ll n, PHI[MM];
 ll totient(ll n) {
     ll result = n;
     //O(sqrt(n)):
@@ -17,6 +19,16 @@ ll totient(ll n) {
     }
     if (n > 1) result -= result / n;
     return result;
+}
+void sieve(ll mx) {
+    for (int i = 1; i <= mx; i++) PHI[i] = i;
+    for (int i = 2; i <= mx; i++) {
+        if (PHI[i] == i) {
+            for (int j = i; j  <= mx; j += i) {
+                PHI[j] = PHI[j] / i * (i - 1);
+            }
+        }
+    }
 }
 int main() {
     cin.tie(0); cout.tie(0); ios::sync_with_stdio(0);

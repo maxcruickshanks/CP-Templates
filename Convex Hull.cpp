@@ -4,6 +4,7 @@ using namespace std;
 #define se second
 #define pb push_back
 typedef long long ll;
+typedef pair<int, int> pi;
 //modified from https://cp-algorithms.com/geometry/grahams-scan-convex-hull.html
 struct pt {
     double x, y;

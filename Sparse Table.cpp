@@ -4,6 +4,7 @@ using namespace std;
 #define se second
 #define pb push_back
 typedef long long ll;
+typedef pair<int, int> pi;
 const int MN = 20, MM = 1e5 + 5;
 int st[MN][MM], N;
 int query(int l, int r) {

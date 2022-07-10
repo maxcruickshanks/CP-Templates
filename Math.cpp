@@ -4,6 +4,7 @@ using namespace std;
 #define se second
 #define pb push_back
 typedef long long ll;
+typedef pair<int, int> pi;
 const int MOD = 1e9 + 7, MM = 1e6 + 5;
 ll fac[MM];
 ll qpow(ll b, ll p) {
@@ -21,6 +22,9 @@ ll divide(ll x, ll y) {
 }
 ll choose(ll n, ll k) {
     return divide(fac[n], (fac[k] * fac[n - k]) % MOD);
+}
+ll gcd(ll a, ll b) {
+    return (a == 0) ? b : gcd(b % a, a);
 }
 ll mod(ll b, ll mod) {
     ll r = b / mod;
@@ -51,6 +55,43 @@ vector<ll> divisors(ll n) {
         }
     }
     return ret;
+}
+struct frac {
+    ll num, denom;
+    frac(ll n, ll den) {
+        assert(den);
+        num = n / gcd(n, den); denom = den / gcd(n, den);
+    }
+    ll LCM(ll a, ll b) {
+        return (a * b) / (gcd(a, b));
+    }
+    ll gcd(ll a, ll b) {
+        if (b == 0) return a;
+        return (a == 0) ? b : gcd(b % a, a);
+    }
+    void add(ll n, ll d) {
+        assert(d);
+        ll lcm = LCM(d, denom);
+        n *= lcm / d; num *= lcm / denom; denom = lcm;
+        num += n;
+        ll gc = gcd(num, denom);
+        num /= gc; denom /= gc;
+        num %= MOD; denom %= MOD;
+    }
+    void print(bool type) {
+        if (type) {
+            cout << num << " / " << denom << "\n";
+        }
+        else {
+            cout << (num * inverse(denom)) % MOD << "\n";
+        }
+    }
+};
+bool isPrime(ll n) {
+    for (ll i = 2; i * i <= n; i++) {
+        if (n % i == 0) return false;
+    }
+    return true;
 }
 
 int main() {

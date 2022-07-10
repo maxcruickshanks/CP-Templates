@@ -4,14 +4,18 @@ using namespace std;
 #define se second
 #define pb push_back
 typedef long long ll;
-struct BIT {
-    ll BIT[MM];
-    void Update(int idx, ll v) {
-        for (; idx < MM; idx += idx & -idx) BIT[idx] += v;
+typedef pair<int, int> pi;
+template <class T> struct BIT {
+    T bit[MM];
+    void Clear() {
+        fill(bit, bit+MM, 0);
     }
-    ll Sum(int idx) {
-        ll ret = 0;
-        for (; idx > 0; idx -= idx & -idx) ret += BIT[idx];
+    void Update(T idx, T v) {
+        for (; idx < MM; idx += idx & -idx) bit[idx] += v;
+    }
+    T Sum(T idx) {
+        T ret = 0;
+        for (; idx > 0; idx -= idx & -idx) ret += bit[idx];
         return ret;
     }
 };

@@ -4,11 +4,11 @@ using namespace std;
 #define se second
 #define pb push_back
 typedef long long ll;
+typedef pair<int, int> pi;
 struct edge {
     int u, v; ll cap, flow = 0;
     edge(int u, int v, ll cap) : v(v), u(u), cap(cap) {}
 };
-
 struct dinic {
     const ll flow_inf = 1e18;
     vector<edge> edges;
@@ -57,7 +57,7 @@ struct dinic {
             fill(level.begin(), level.end(), -1); level[s] = 0; q.push(s);
             if (!bfs()) break;
             fill(ptr.begin(), ptr.end(), 0);
-            while (long long pushed = dfs(s, flow_inf)) f += pushed;
+            while (ll pushed = dfs(s, flow_inf)) f += pushed;
         }
         return f;
     }

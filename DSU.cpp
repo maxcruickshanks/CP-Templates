@@ -4,6 +4,7 @@ using namespace std;
 #define se second
 #define pb push_back
 typedef long long ll;
+typedef pair<int, int> pi;
 const int MM = 1e5 + 5;
 struct DSU {
     int PA[MM], SZ[MM];

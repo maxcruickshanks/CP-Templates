@@ -4,6 +4,7 @@ using namespace std;
 #define se second
 #define pb push_back
 typedef long long ll;
+typedef pair<int, int> pi;
 const int MM = 1e6 + 5;
 struct node {
     int l, r, mx;
@@ -27,6 +28,14 @@ int query(int rt, int l, int r) {
     if (seg[rt].r < l || seg[rt].l > r) return INT_MIN;
     if (l <= seg[rt].l && seg[rt].r <= r) return seg[rt].mx;
     return max(query(2 * rt, l, r), query(2 * rt + 1, l, r));
+}
+void update(int rt, int idx, int v) {
+    if (seg[rt].l > idx || seg[rt].r < idx) return;
+    if (seg[rt].l == idx && seg[rt].r == idx) {
+        seg[rt].mx = max(seg[rt].mx, v); return;
+    }
+    update(2 * rt, idx, v), update(2 * rt + 1, idx, v);
+    pushup(rt);
 }
 
 int main() {

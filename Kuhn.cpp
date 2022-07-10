@@ -4,6 +4,7 @@ using namespace std;
 #define se second
 #define pb push_back
 typedef long long ll;
+typedef pair<int, int> pi;
 //modified from https://cp-algorithms.com/graph/kuhn_maximum_bipartite_matching.html
 const int MM = 105;
 int MT[MM], VIS[MM];

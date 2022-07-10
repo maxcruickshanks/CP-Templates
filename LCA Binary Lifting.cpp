@@ -4,6 +4,7 @@ using namespace std;
 #define se second
 #define pb push_back
 typedef long long ll;
+typedef pair<int, int> pi;
 const int MM = 1e5 + 5, LOG = 18;
 int lca[LOG][MM], dep[MM];
 vector<int> adj[MM];
