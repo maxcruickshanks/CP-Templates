@@ -12,11 +12,12 @@ struct hashes {
     mt19937 rng;
     static int global_base1, global_base2;
     int base, inv, mod, sz;
-    vector<long long> powers, inv_powers, psa;
+    static vector<long long> powers, inv_powers;
+    vector<long long> psa;
 
     hashes(T& s, int m = 1e9 + 7, int b = 131) : rng(chrono::steady_clock::now().time_since_epoch().count()),
                                                  base(R ? uniform_int_distribution<int>(200, 1000000000)(rng) : b),
-                                                 inv(1), mod(m), sz(s.size()), powers{1}, inv_powers{1}, psa{0} {
+                                                 inv(1), mod(m), sz(s.size()), psa{0} {
         int& chosen_base = LEFT_HASH ? global_base1 : global_base2;
         if (chosen_base) base = chosen_base;
         else chosen_base = base;
@@ -25,10 +26,19 @@ struct hashes {
             if (exp & 1) inv = inv * cur % m;
             cur = cur * cur % m;
         }
+        compute_powers(s, base, inv, mod);
         for (int i = 0; i < s.size(); i++) {
-            powers.push_back(powers.back() * base % mod);
-            inv_powers.push_back(inv_powers.back() * inv % mod);
             psa.push_back((psa.back() + s[i] * powers[i]) % mod);
+        }
+    }
+    
+    static void compute_powers(T &s, int bs, int in, int md) {
+        if (powers.empty()) {
+            powers = {1}; inv_powers = {1};
+        }
+        for (int i = powers.size(); i < s.size(); i++) {
+            powers.push_back(powers.back() * bs % md);
+            inv_powers.push_back(inv_powers.back() * in % md);
         }
     }
 
